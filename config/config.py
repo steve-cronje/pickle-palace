@@ -10,5 +10,4 @@ DB_DRIVER = config['DATABASE_DRIVER']
 
 DB_URL = f"{DB_DRIVER}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 
-# postgresql://potatodev:pretzel10@localhost/pickle-palace
 
