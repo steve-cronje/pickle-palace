@@ -11,3 +11,11 @@ class User(Base):
     username = Column(String, nullable=False)
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
+
+
+class Pickle(Base):
+    __tablename__ = "pickles"
+
+    name = Column(String, primary_key=True)
+    colour = Column(String)
+    taste = Column(String)
