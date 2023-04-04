@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Pickles{% endblock title %}
+
+{% block content %}
+{% if pickle_list %}
+<div class="row p-2 text-center">
+    {% for pickle in pickle_list %}
+    <div class="col-4">
+        <div class="card text-bg-primary">
+            <div class="card-header">
+                <h3 class="display-5">{{ pickle.name }}</h3>
+            </div>
+            <a href="{{ url_for('pickle', pickle_name=pickle.name) }}" class="btn btn-outline-light btn-lg">Inspect pickle</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<h2 class="display-2 text-center text-light m-3">There are no pickles!</h2>
+{% endif %}
+<a href="{{ url_for('pickle-create-form') }}" class="btn btn-lg btn-primary">Create pickle</a>
+{% endblock content %}

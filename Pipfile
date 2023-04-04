@@ -10,6 +10,8 @@ alembic = "*"
 psycopg2 = "*"
 python-dotenv = "*"
 jinja2 = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
+passlib = {extras = ["bcrypt"], version = "*"}
 
 [dev-packages]
 

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Create pickle{% endblock title %}
+
+{% block content %}
+<div class="row p-2 text-center">
+    <form method="POST" action="{{ url_for('pickle-create') }}" enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name of your pickle</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="mb-3">
+            <label for="colour" class="form-label">Colour of your pickle</label>
+            <input type="text" class="form-control" id="colour" aria-describedby="colourHelp" name="colour">
+            <div id="colourHelp" class="form-text text-wrap">Don't be too discouraged if your pickle has a bit of an odd colour!</div>
+        </div>
+        <div class="mb-3">
+            <label for="taste" class="form-label">Taste of your pickle</label>
+            <input type="text" class="form-control" id="taste" name="taste" aria-describedby="tasteHelp">
+            <div id="tasteHelp" class="form-text text-wrap">Every pickle has a distinct taste!</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock content %}

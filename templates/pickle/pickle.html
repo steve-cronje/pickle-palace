@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ pickle.name }}{% endblock title %}
+
+{% block content %}
+<div class="row p-2 text-center">
+        <div class="card text-bg-dark">
+            <div class="card-header">
+                <p class="fs-2">Name of pickle</p>
+                <h3 class="display-4">{{ pickle.name }}</h3>
+            </div>
+            <div class="card-body text-bg-light">
+                <p class="fs-2">Colour of pickle</p>
+                <h3 class="display-4">{{ pickle.colour }}</h3>
+            </div>
+            <div class="card-footer">
+                <p class="fs-2">Taste of pickle</p>
+                <h3 class="display-4">{{ pickle.taste }}</h3>
+            </div>
+            <a href="{{ url_for('pickle-delete-confirm', pickle_name=pickle.name) }}" class="btn btn-lg btn-outline-light">Delete pickle</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

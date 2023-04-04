@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete {{ pickle.name }}{% endblock title %}
+
+{% block content %}
+<div class="row p-2 text-center">
+    <h3 class="display-3 text-light text-wrap mb-3">Are you sure you want to delete the pickle {{ pickle.name }}?</h3>
+    <form action="{{ url_for('pickle-delete', pickle_name=pickle.name) }}" method="POST">
+        <button type="submit" class="btn btn-outline-danger btn-lg">Yes, delete</button>
+    </form>
+</div>
+{% endblock content %}
