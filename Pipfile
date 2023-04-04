@@ -9,6 +9,7 @@ sqlalchemy = "*"
 alembic = "*"
 psycopg2 = "*"
 python-dotenv = "*"
+jinja2 = "*"
 
 [dev-packages]
 
