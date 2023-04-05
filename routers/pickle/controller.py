@@ -11,7 +11,7 @@ router = APIRouter(tags=['pickle'], prefix='/pickle')
 templates = Jinja2Templates("templates")
 
 @router.get('/pickles', response_class=HTMLResponse, name='pickle-list')
-def list_pickles(request: Request, db: Session = Depends(database.get_db)):
+def list_pickles(request: Request, db: Annotated[Session, Depends(database.get_db)]):
     pickle_list = crud.get_pickles(db)
     return templates.TemplateResponse('pickle/list.html', {"request": request, 'pickle_list': pickle_list})
 
@@ -25,7 +25,7 @@ def create_pickle_form(request: Request):
 def create_pickle(name: Annotated[str, Form()],
                 colour: Annotated[str, Form()], 
                 taste: Annotated[str, Form()], 
-                db: Session = Depends(database.get_db)):
+                db: Annotated[Session, Depends(database.get_db)]):
     
     db_pickle = crud.get_pickle(db, name)
     
@@ -38,19 +38,19 @@ def create_pickle(name: Annotated[str, Form()],
 
 
 @router.get('/{pickle_name}', response_class=HTMLResponse, name='pickle')
-def view_pickle(pickle_name: str, request: Request, db: Session = Depends(database.get_db)):
+def view_pickle(pickle_name: str, request: Request, db: Annotated[Session, Depends(database.get_db)]):
     pickle = crud.get_pickle(db, pickle_name)
     return templates.TemplateResponse('pickle/pickle.html', {"request": request, 'pickle': pickle})
 
 
 @router.get('/{pickle_name}/delete', response_class=HTMLResponse, name='pickle-delete-confirm')
-def delete_pickle_confirm(pickle_name: str, request: Request, db: Session = Depends(database.get_db)):
+def delete_pickle_confirm(pickle_name: str, request: Request, db: Annotated[Session, Depends(database.get_db)]):
     pickle = crud.get_pickle(db, pickle_name)
     return templates.TemplateResponse('pickle/delete.html', {"request": request, 'pickle': pickle})
 
 
 @router.post('/{pickle_name}/delete', response_class=HTMLResponse, name='pickle-delete')
-def delete_pickle(pickle_name: str, db: Session = Depends(database.get_db)):
+def delete_pickle(pickle_name: str, db: Annotated[Session, Depends(database.get_db)]):
     pickle = crud.get_pickle(db, pickle_name)
     crud.delete_pickle(db, pickle)
     return RedirectResponse('/pickle/pickles', status_code=status.HTTP_302_FOUND)
