@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete game{% endblock title %}
+
+{% block content %}
+<h2 class="display-2 text-center text-danger m-2 mt-4">Delete {{ game.name }}</h2>
+<h4 class="display-4 text-center text-light text-wrap m-2 mt-4">Are you sure you want to delete {{ game.name }} and all its associated screenshots?</h4>
+<form action="{{ url_for('delete-game', game_id=game.id) }}" method="POST">
+    <button type="submit" value="Yes, delete" class="btn btn-lg btn-outline-danger w-100">Yes, delete {{ game.name }}</button>
+</form>
+{% endblock content %}

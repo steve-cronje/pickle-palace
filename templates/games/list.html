@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Games{% endblock title %}
+
+{% block content %}
+<h2 class="display-4 text-center mb-3 text-light">Games</h2>
+<div class="row p-2">
+    {% if games %}
+        {% for game in games %}
+        <div class="col-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <p class="fs-2 text-center">{{ game.name }}</p>
+                </div>
+                <div class="card-body">
+                    <p class="fs-5 text-center text-wrap">{{ game.description }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ url_for('game', game_id=game.id) }}" class="btn btn-lg btn-outline-primary">See more</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <h3 class="display-6 text-center m-4 text-light">There are no games!</h3>
+    {% endif %}
+    <a href="{{ url_for('new-game') }}" class="btn btn-lg btn-outline-success w-100">Import game from IGDB</a>
+</div>
+{% endblock content %}

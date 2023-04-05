@@ -7,7 +7,7 @@ class PickleBase(BaseModel):
     taste: str
 
 
-class PickleCreate(PickleBase):
+class PickleInDb(PickleBase):
     pass
 
 

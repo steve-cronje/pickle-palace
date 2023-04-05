@@ -4,7 +4,8 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.exceptions import HTTPException
 from sqlalchemy.orm import Session
 from typing import Annotated
-from db import database, crud, schemas
+from db import database, crud
+from schemas import pickle
 
 router = APIRouter(tags=['pickle'], prefix='/pickle')
 
@@ -32,7 +33,7 @@ def create_pickle(name: Annotated[str, Form()],
     if db_pickle: 
         raise HTTPException(status_code=400, detail="Pickle already exists!")
     
-    schema_pickle = schemas.PickleCreate(name=name, colour=colour, taste=taste)
+    schema_pickle = pickle.PickleCreate(name=name, colour=colour, taste=taste)
     pickle = crud.create_pickle(db, schema_pickle)
     return RedirectResponse(f'/pickle/{pickle.name}', status_code=status.HTTP_302_FOUND)
 

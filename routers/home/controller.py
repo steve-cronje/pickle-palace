@@ -1,14 +1,8 @@
-from fastapi import APIRouter, Request, Form, Depends, status
+from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.exceptions import HTTPException
-from sqlalchemy.orm import Session
-from typing import Annotated
-from db import database, crud, schemas
-from dependencies.auth import get_current_user
+from fastapi.responses import HTMLResponse
 
 router = APIRouter(tags=['home'])
-
 templates = Jinja2Templates("templates")
 
 @router.get("/", response_class=HTMLResponse)

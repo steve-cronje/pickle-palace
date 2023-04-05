@@ -13,6 +13,7 @@ jinja2 = "*"
 python-jose = {extras = ["cryptography"], version = "*"}
 passlib = {extras = ["bcrypt"], version = "*"}
 python-multipart = "*"
+igdb-api-v4 = "*"
 
 [dev-packages]
 
