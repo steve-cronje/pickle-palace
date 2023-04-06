@@ -103,6 +103,15 @@ def create_game(db: Session, game: game.GameInDb):
     return game_db
 
 
+def edit_game(db: Session, game_id, my_review, favourite):
+    game = db.query(models.Game).filter(models.Game.id == game_id).first()
+    game.my_review = my_review
+    game.favourite = favourite
+    db.commit()
+    db.refresh(game)
+    return game
+
+
 def delete_game(db: Session, game: game.Game):
     db_game = db.query(models.Game).filter(models.Game.id == game.id).first()
     db.delete(db_game)

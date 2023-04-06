@@ -4,12 +4,40 @@
 
 {% block content %}
 <h4 class="display-2 text-center text-light m-2 mt-4">{{ game.name }}</h4>
+{% if game.favourite %}
+<p class="display-6 text-center text-light text-bg-success m-4">Favourite</p>
+{% endif %}
 <div class="row p-2 mt-5 mb-5">
-    {% for screenshot in game.screenshots[:3] %}
-    <div class="col-4">
-        <img src="{{ screenshot.url }}" class="w-100"/>
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            {% for screenshot in game.screenshots %}
+            {% if loop.first %}
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="{{ loop.index0 }}" class="active" aria-current="true" aria-label="Slide {{ loop.index }}"></button>
+            {% else %}
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="{{ loop.index0 }}" aria-label="Slide {{ loop.index }}"></button>
+            {% endif %}
+            {% endfor %}
+          </div>
+        <div class="carousel-inner">
+            {% for screenshot in game.screenshots %}
+            {% if loop.first %}
+            <div class="carousel-item active" data-bs-interval="4000">
+            {% else %}
+            <div class="carousel-item" data-bs-interval="4000">
+            {% endif %}
+                <img src="{{ screenshot.url }}" class="d-block w-100" alt="...">
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    {% endfor %}
 </div>
 <div class="card text-bg-dark text-center mb-3">
     <div class="card-body">
@@ -25,5 +53,6 @@
     {% endif %}
     {% endfor %}
 </p>
+<a href="{{ url_for('edit-game', game_id=game.id) }}" class="btn btn-lg btn-outline-warning w-100">Edit game...</a>
 <a href="{{ url_for('delete-game', game_id=game.id) }}" class="btn btn-lg btn-outline-danger w-100">Delete game...</a>
 {% endblock content %}

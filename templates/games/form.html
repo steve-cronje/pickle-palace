@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}New game{% endblock title %}
+
+{% block content %}
+
+{% if game %}
+<h3 class="display-4 text-center text-light mb-3">Edit game:</h3>
+<h3 class="display-3 text-center text-light mb-3">{{ game.name }}</h3>
+<form action="{{ url_for('edit-game', game_id=game.id) }}" method="POST">
+    <div class="form-floating mb-3">
+        <textarea class="form-control" placeholder="" id="my_review" style="height: 150px" name="my_review" required>{{ game.my_review }}</textarea>
+        <label for="my_review">My personal review / description of game</label>
+    </div>
+    <div class="form-check form-switch">
+        {% if game.favourite %}
+        <input class="form-check-input" type="checkbox" role="switch" value="true" id="favourite" name="favourite" checked="true">
+        {% else %}
+        <input class="form-check-input" type="checkbox" role="switch" value="true" id="favourite" name="favourite">
+        {% endif %}
+        <label class="form-check-label" for="favourite">Favourite</label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+{% else %}
+<h3 class="display-4 text-center text-light mb-3">New game</h3>
+<form action="{{ url_for('new-game') }}" method="POST">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="game_id" placeholder="" name="game_id">
+        <label for="game_id">IGDB Game ID</label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea class="form-control" placeholder="" id="my_review" style="height: 150px" name="my_review" required></textarea>
+        <label for="my_review">My personal review / description of game</label>
+    </div>
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" value="true" id="favourite" name="favourite">
+        <label class="form-check-label" for="favourite">Favourite</label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+{% endif %}
+{% endblock content %}
