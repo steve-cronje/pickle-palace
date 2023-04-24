@@ -45,11 +45,17 @@
     </div>
 </div>
 <p class="text-center fs-3 text-wrap text-light mb-4">{{ game.description }}</p>
+{% if game.release_date %}
+<p class="text-center fs-4 text-light bg-dark mb-4">{{ game.release_date.strftime('%B %d, %Y') }}</p>
+{% else %}
+<p class="text-center fs-4 text-light bg-dark mb-4">TBA</p>
+{% endif %}
 <p class="text-center fs-6 text-muted text-light mb-5">
     {% for genre in game.genres %}
-    {{ genre.name }},
     {% if loop.last %}
     {{ genre.name }}
+    {% else %}
+    {{ genre.name }},
     {% endif %}
     {% endfor %}
 </p>

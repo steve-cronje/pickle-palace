@@ -11,7 +11,11 @@ def get_igdb_game(game_id: int):
 
     cover_url = game_json[0]['cover']['url'].replace("t_thumb", "t_1080p")
     name = game_json[0]['name']
-    release_date = date.fromtimestamp(game_json[0]['first_release_date'])
+    try:
+        release_date = date.fromtimestamp(game_json[0]['first_release_date'])
+    except KeyError as e:
+        print(e)
+        release_date = None
     description = game_json[0]['summary']
 
     genre_list = []
