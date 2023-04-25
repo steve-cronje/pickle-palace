@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
-
 from db import models
-from schemas import pickle, game
+from schemas import pickle, game, user
 from api.igdb.util import get_igdb_game, get_screenshots_for_game
+from config.auth.util import verify_password
 
 
 def get_pickles(db: Session, skip: int = 0, limit: int = 100):
@@ -118,3 +118,56 @@ def delete_game(db: Session, game: game.Game):
     db.commit()
 
 
+# //////// USER AUTH ///////////
+
+
+def get_user_by_username(db: Session, username: str):
+    db_user = db.query(models.User).filter(models.User.username == username).first()
+    return db_user
+
+
+def get_user_by_email(db: Session, email: str):
+    db_user = db.query(models.User).filter(models.User.email == email).first()
+    return db_user
+
+
+def create_user(db: Session, user: user.UserInDb):
+    if db.query(models.User).filter(models.User.username == user.username).first() is None:
+        db_user = models.User(username=user.username,
+                            email=user.email,
+                            password=user.password)
+        
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
+        return db_user
+    else:
+        return None
+    
+
+def edit_user(db: Session, user_id: int, full_name: str | None = None, image: str | None = None):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if full_name is not None:
+        db_user.full_name == full_name
+    if image is not None:
+        db_user.image == image
+
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+
+def delete_user(db: Session, user: user.User):
+
+    db_user = db.query(models.User).filter(models.User.id == user.id).first()
+    db.delete(db_user)
+    db.commit()
+
+
+def authenticate_user(db: Session, username: str, password: str):
+    user = get_user_by_username(db, username)
+    if not user:
+        return False
+    if not verify_password(password, user.hashed_password):
+        return False
+    return user

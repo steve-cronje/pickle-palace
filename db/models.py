@@ -1,6 +1,7 @@
-from sqlalchemy import Boolean, Column, Integer, String, Date, ForeignKey, Table
+from sqlalchemy import Boolean, Column, Integer, String, Date, ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
 from db.database import Base
+
 
 
 class Pickle(Base):
@@ -48,3 +49,14 @@ class GameScreenshot(Base):
 
 
 
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    password = Column(String, nullable=False)
+    full_name = Column(String, nullable=True)
+    image = Column(String, nullable=True)
+    date_joined = Column(DateTime, default=func.now())
+    is_active = Column(Boolean, default=True)
