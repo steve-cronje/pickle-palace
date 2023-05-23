@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Account settings{% endblock title %}
+
+{% block content %}
+<h2 class="display-4 text-center mb-3 text-light">Edit account settings</h2>
+<p></p>
+<form action="{{ url_for('edit_user') }}" method="POST" enctype="multipart/form-data">
+    <div class="input-group form-floating mb-3">
+        <label class="input-group-text" for="fileInput">Image</label>
+        <input type="file" class="form-control" id="fileInput" name="image">
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="fullnameInput" placeholder="name@example.com" name="fullname">
+        <label for="fullnameInput">Full name</label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+{% endblock content %}

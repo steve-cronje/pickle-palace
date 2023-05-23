@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}User Signup{% endblock title %}
+
+{% block content %}
+<h2 class="display-4 text-center mb-3 text-light">Signup</h2>
+<p></p>
+<form action="{{ url_for('signup') }}" method="POST">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="usernameInput" placeholder="name@example.com" name="username">
+        <label for="usernameInput">username</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="emailInput" placeholder="name@example.com" name="email">
+        <label for="emailInput">email</label>
+    </div>
+    <div class="form-floating">
+        <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password">
+        <label for="passwordinput">Password</label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+{% endblock content %}

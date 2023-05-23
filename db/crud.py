@@ -131,6 +131,11 @@ def get_user_by_email(db: Session, email: str):
     return db_user
 
 
+def get_user(db: Session, id: int):
+    db_user = db.query(models.User).filter(models.User.id == id).first()
+    return db_user
+
+
 def create_user(db: Session, user: user.UserInDb):
     if db.query(models.User).filter(models.User.username == user.username).first() is None:
         db_user = models.User(username=user.username,
@@ -147,10 +152,12 @@ def create_user(db: Session, user: user.UserInDb):
 
 def edit_user(db: Session, user_id: int, full_name: str | None = None, image: str | None = None):
     db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    print(full_name)
+    print(image)
     if full_name is not None:
-        db_user.full_name == full_name
+        db_user.full_name = full_name
     if image is not None:
-        db_user.image == image
+        db_user.image = image
 
     db.commit()
     db.refresh(db_user)
@@ -168,6 +175,6 @@ def authenticate_user(db: Session, username: str, password: str):
     user = get_user_by_username(db, username)
     if not user:
         return False
-    if not verify_password(password, user.hashed_password):
+    if not verify_password(password, user.password):
         return False
     return user

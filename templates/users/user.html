@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }}{% endblock title %}
+
+{% block content %}
+<h2 class="display-4 text-center mb-3 text-light">{{ user.username }}</h2>
+<div class="row p-3 g-3">
+    <div class="col-4 mb-4">
+        {% if user.image %}
+        <img src="{{ url_for('media', path=user.image) }}" class="w-100"/>
+        {% endif %}
+    </div>
+    <div class="col-4 mb-4">
+        <p class="text-light mb-3">{{ user.full_name }}</p>
+        <p class="text-light mb-3">Joined: {{ user.date_joined }}</p>
+        <p class="text-light">Active: {{ user.is_active }}</p>
+    </div>
+    <div class="col-4 mb-4">
+        <p class="text-light mb-3">ID: {{ user.id }}</p>
+        <p class="text-light mb-3">Email: {{ user.email }}</p>
+    </div>
+</div>
+{% endblock content %}
